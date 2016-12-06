@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="vendor.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+    <script src="src/js/module.js"></script>
+
+    <script src="src/js/configs/config.js"></script>
+    <script src="src/js/services/Users.js"></script>
+
+    <script src="src/js/controllers/users/add.js"></script>
+    <script src="src/js/controllers/users/edit.js"></script>
+    <script src="src/js/controllers/users/list.js"></script>
+
+    <script src="src/templates/users/add.html"></script>
+    <script src="src/templates/users/edit.html"></script>
+    <script src="src/templates/users/list.html"></script>
+</head>
+
+<body ng-app="tofi" ng-strict-di>
+        <h1>{{2+2+2+2}}</h1>
+
+    <a ui-sref="users.list" href>bzzzz</a>
+
+
+    <ui-view></ui-view>
+</body>
+</html>
