@@ -1,34 +1,35 @@
 (function(){
-    angular.module('tofi.users')
+    angular.module('tofi.users', [])
+
+    angular
+        .module('tofi.users')
         .config(config)
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
     function config($stateProvider, $urlRouterProvider) {
-
-//        $urlRouterProvider.otherwise("/home");
-
         $stateProvider
             .state('users', {
                 url: "/users",
+                template: '<ui-view/>',
                 abstract: true
             })
             .state('users.list', {
-                url: "/users",
+                url: "/list",
                 controller: 'userListCtrl',
                 controllerAs: 'ctrl',
-                templateUrl: "/frontend/templates/users/list.html"
+                templateUrl: "src/users/templates/list.html"
             })
-
-            .state('state2', {
-                url: "/state2",
-                templateUrl: "partials/state2.html"
+            .state('users.add', {
+                url: "/add",
+                controller: 'userAddCtrl',
+                controllerAs: 'ctrl',
+                templateUrl: "src/users/templates/add.html"
             })
-            .state('state2.list', {
-                url: "/list",
-                templateUrl: "partials/state2.list.html",
-                controller: function($scope) {
-                $scope.things = ["A", "Set", "Of", "Things"];
-                }
+             .state('users.edit', {
+                url: "/edit",
+                controller: 'userEditCtrl',
+                controllerAs: 'ctrl',
+                templateUrl: "src/users/templates/edit.html"
             });
     }
 })();
