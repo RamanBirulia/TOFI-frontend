@@ -4,30 +4,112 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <link rel="stylesheet" href="src/main/css/main.css">
+    <link rel="stylesheet" href="src/main/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/main/css/style.min.css">
+    <link rel="stylesheet" href="src/main/css/font-awesome.min.css">
+
     <script src="vendor.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-    <script src="src/js/module.js"></script>
+    <script src="src/main/js/config.js"></script>
+    <script src="src/users/js/config.js"></script>
+    <script src="src/statistic/js/config.js"></script>
 
-    <script src="src/js/configs/config.js"></script>
-    <script src="src/js/services/Users.js"></script>
+    <script src="src/users/js/controllers/add.js"></script>
+    <script src="src/users/js/controllers/edit.js"></script>
+    <script src="src/users/js/controllers/list.js"></script>
+    <script src="src/users/js/services/Users.js"></script>
 
-    <script src="src/js/controllers/users/add.js"></script>
-    <script src="src/js/controllers/users/edit.js"></script>
-    <script src="src/js/controllers/users/list.js"></script>
+     <script src="src/statistic/js/controllers/statistic.js"></script>
 
-    <script src="src/templates/users/add.html"></script>
-    <script src="src/templates/users/edit.html"></script>
-    <script src="src/templates/users/list.html"></script>
+    <script src="src/main/js/controllers/home.js"></script>
+    <script src="src/main/js/controllers/login.js"></script>
+    <script src="src/main/js/controllers/register.js"></script>
+    <script src="src/main/js/controllers/about.js"></script>
+    <script src="src/main/js/services/currentUser.js"></script>
+    <script src="src/main/js/services/localStorage.js"></script>
 </head>
 
-<body ng-app="tofi" ng-strict-di>
-        <h1>{{2+2+2+2}}</h1>
+<body ng-app="tofi">
+<div>
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
 
-    <a ui-sref="users.list" href>bzzzz</a>
+                <li style="padding: 10px 25px;background-color: #243240;">
+                    <div class="dropdown">
+                        <span class="clear">
+                            <span class="block m-t-xs" style="font-family: cursive;font-size: xx-large;color: rgba(212, 174, 56, 0.85);text-align: center;">
+                                <strong class="font-bold">GraBiLa</strong><br>
+                                <span>Royal Club</span>
+                            </span>
+                        </span>
+                    </div>
+                </li>
 
+                <li>
+                    <a ui-sref="users.list">
+                        <i class="fa fa-group"></i> <span>Users</span>
+                    </a>
+                </li>
+                 <li>
+                    <a ui-sref="trade">
+                        <i class="fa fa-gavel"></i> <span>Trade</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="statistic">
+                        <i class="fa fa-line-chart"></i> <span>Statistic</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="about">
+                        <i class="fa fa-cogs"></i> <span>About</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <ui-view></ui-view>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <ul class="nav navbar-top-links navbar-left">
+                    <li>
+                        <a href="">
+                            <span class="m-r-sm text-muted welcome-message">Welcome on board!</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="login">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <ui-view></ui-view>
+
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> GraBiLa Company © 2016-2017
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

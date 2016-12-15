@@ -1,11 +1,17 @@
 (function(){
+
     angular.module('tofi')
         .controller('homeCtrl', homeCtrl);
 
-    homeCtrl.$inject = [];
-    function homeCtrl(){
+    homeCtrl.$inject = ['$http', 'currentUser', '$scope'];
+    function homeCtrl($http, currentUser, $scope){
 
-        console.log('home! sweet home!');
+        $scope.currentUser = currentUser;
+
+        $scope.currentUser = {
+            name: 'RAMAN',
+            surname: 'Birulia'
+        }
     }
 
 })();

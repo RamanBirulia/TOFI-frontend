@@ -1,0 +1,18 @@
+{
+  "name": "tofi frontend",
+  "version": "0.0.0",
+  "homepage": "none",
+  "authors": [
+    "Raman Yarilo Birulia"
+  ],
+  "description": "Awersome tofifi",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "^1.5.9"
+  }
+}
