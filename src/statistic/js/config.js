@@ -9,7 +9,7 @@
     function config($stateProvider, $urlRouterProvider) {
         $stateProvider
 
-            .state('statistic', {
+            .state('app.statistic', {
                 url: "/statistic",
                 controller: 'statisticCtrl',
                 controllerAs: 'ctrl',

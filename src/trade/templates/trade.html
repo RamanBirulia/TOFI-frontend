@@ -1,0 +1,105 @@
+<div class="row border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Trade</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="app.home"><span>Home</span></a>
+            </li>
+            <li>
+                <strong>Trade</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="ibox float-e-margins" style="margin-top: 15px">
+    <div class="ibox-title">
+        <h5>Trader platform</h5>
+        <div class="ibox-tools">
+            <a ng-click="ctrl.addDollar()">
+                <span>+</span><i class="fa fa-dollar"></i>
+            </a>
+            <a ng-click="ctrl.addEuro()">
+                <span>+</span><i class="fa fa-eur"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="line" class="chart chart-line" chart-data="data"
+                    chart-labels="labels" chart-series="series" chart-options="options">
+                </canvas>
+            </div>
+            <div class="col-md-6">
+                <div class="panel blank-panel" style="background-color: #f3f3f4;">
+
+                        <div class="panel-heading">
+                            <div class="panel-title m-b-md"><h4>Trader panel</h4></div>
+                            <div class="panel-options">
+                                <ul class="nav nav-tabs">
+                                    <li ng-class="{'active': tab == 1}" ng-click="ctrl.changeTab(1)">
+                                        <a data-toggle="tab">Buy <i class="fa fa-dollar"></i></a>
+                                    </li>
+                                    <li ng-class="{'active': tab == 2}" ng-click="ctrl.changeTab(2)">
+                                        <a data-toggle="tab">Buy <i class="fa fa-eur"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="tab-content">
+                                <div ng-show="tab == 1" class="tab-pane active">
+                                    <div>
+                                        <h3 class="m-t-none m-b">Buy USD for EUR</h3>
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label>Price</label>
+                                                <input type="number" class="form-control" ng-model="usd.price">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Amount</label>
+                                                <input type="number" class="form-control" ng-model="usd.amount">
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs"
+                                                        type="submit"
+                                                        ng-click="ctrl.buyUsd()">
+                                                    <strong>Buy</strong></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div ng-show="tab == 2" class="tab-pane active">
+                                    <div>
+                                        <h3 class="m-t-none m-b">Buy EUR for USD</h3>
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label>Price</label>
+                                                <input type="number" class="form-control" ng-model="eur.price">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Amount</label>
+                                                <input type="number" class="form-control" ng-model="eur.amount">
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs"
+                                                        type="submit"
+                                                        ng-click="ctrl.buyEur()">
+                                                    <strong>Buy</strong></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

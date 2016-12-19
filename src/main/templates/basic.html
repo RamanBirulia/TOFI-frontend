@@ -1,0 +1,127 @@
+
+<div style="margin: 10px;width: 350px;z-index: 9999;right: 0;position: fixed;">
+    <div class="alert alert-danger alert-dismissable" ng-repeat="message in messages.danger"
+        ng-click="ctrl.removeMessage('danger', message)">
+        <p><strong>{{message.title}}</strong></p>
+        <p ng-repeat="errorInfo in message.body">{{errorInfo}}</p>
+    </div>
+    <div class="alert alert-warning alert-dismissable" ng-repeat="message in messages.warning"
+         ng-click="ctrl.removeMessage('warning', message)">
+        <p><strong>{{message.title}}</strong></p>
+        <p ng-repeat="errorInfo in message.body">{{errorInfo}}</p>
+    </div>
+    <div class="alert alert-success alert-dismissable" ng-repeat="message in messages.success"
+         ng-click="ctrl.removeMessage('success', message)">
+        <p><strong>{{message.title}}</strong></p>
+        <p ng-repeat="errorInfo in message.body">{{errorInfo}}</p>
+    </div>
+    <div class="alert alert-info alert-dismissable" ng-repeat="message in messages.info"
+         ng-click="ctrl.removeMessage('info', message)">
+        <p><strong>{{message.title}}</strong></p>
+        <p ng-repeat="errorInfo in message.body">{{errorInfo}}</p>
+    </div>
+</div>
+
+<div>
+    <!--BEGIN NAVIGATION PANEL-->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+
+                <li style="padding: 10px 25px;background-color: #243240;">
+                    <div class="dropdown">
+                        <span class="clear">
+                            <span class="block m-t-xs" style="font-family: cursive;font-size: xx-large;color: rgba(212, 174, 56, 0.85);text-align: center;">
+                                <strong class="font-bold">GraBiLa</strong><br>
+                                <span>Royal Club</span>
+                            </span>
+                        </span>
+                    </div>
+                </li>
+
+                <li ng-if="currentUser.role === 'admin'">
+                    <a ui-sref="app.users.list">
+                        <i class="fa fa-group"></i> <span>Users</span>
+                    </a>
+                </li>
+                 <li>
+                    <a ui-sref="app.trade">
+                        <i class="fa fa-gavel"></i> <span>Trade</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.statistic">
+                        <i class="fa fa-line-chart"></i> <span>Statistic</span>
+                    </a>
+                </li>
+                <li ng-if="currentUser.role === 'admin'">
+                    <a ui-sref="app.bots">
+                        <i class="fa fa-reddit"></i> <span>Bots</span>
+                    </a>
+                </li>
+                <li ng-if="currentUser.role === 'admin'">
+                    <a ui-sref="app.time">
+                        <i class="fa fa-clock-o"></i> <span>Time</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.about">
+                        <i class="fa fa-cogs"></i> <span>About</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--END NAVIGATION PANEL-->
+
+    <div id="page-wrapper" class="gray-bg">
+
+        <!--BEGIN HEADER-->
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <ul class="nav navbar-top-links navbar-left">
+                    <li>
+                        <a href="">
+                            <span class="m-r-sm text-muted welcome-message">Welcome on board, <strong>{{currentUser.toString()}}</strong></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li ng-if="currentUser.dollars">
+                        <span class="label label-primary">{{currentUser.dollars}} <i class="fa fa-dollar"></i> </span>
+                    </li>
+                    <li ng-if="currentUser.euro">
+                        <span class="label label-info">{{currentUser.euro}} <i class="fa fa-eur"></i> </span>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i>  <span class="label label-warning">8</span>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a ng-click="ctrl.logout()">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!--END HEADER-->
+
+        <ui-view></ui-view>
+
+        <!--BEGIN FOOTER -->
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> GraBiLa Company © 2016-2017
+            </div>
+        </div>
+        <!--END FOOTER -->
+    </div>
+</div>

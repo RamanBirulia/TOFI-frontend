@@ -1,11 +1,23 @@
 (function(){
+    angular.module('tofi.trade')
+        .controller('tradeCtrl', tradeCtrl);
 
-    angular.module('tofi')
-        .controller('homeCtrl', homeCtrl);
+    tradeCtrl.$inject = ['$scope', 'trader', 'messages'];
+    function tradeCtrl($scope, trader, messages){
+        var ctrl = this;
 
-    homeCtrl.$inject = ['$http', 'currentUser', '$scope', 'messages', '$interval'];
-    function homeCtrl($http, currentUser, $scope, messages, $interval){
-//
+        ctrl.addDollar = trader.addDollars;
+        ctrl.addEuro = trader.addEuro;
+
+        $scope.tab = 1;
+
+        $scope.usd = {};
+        $scope.eur = {};
+
+        ctrl.changeTab = function(id){
+            $scope.tab = id;
+        }
+
         function newDate(days) {
           return moment().add(days, 'd');
         }
@@ -49,10 +61,16 @@
         }
 
 
-        $interval(function(){
-            $scope.labels  = $scope.labels.slice(1).concat([moment($scope.labels[$scope.labels.length-1]).add(1, 'days')]);
-            $scope.data[0]  = $scope.data[0].slice(1).concat(Math.random());
-        }, 2000);
-    }
+        ctrl.buyUsd = function(){
+            trader.buy(usd.price, usd.mount)
+                .then(function(response){
+                    messages.success('Deal started successfully');
+                })
+        };
 
+        ctrl.buyEur = function(){
+            trader.buy(eur.price, eur.mount);
+        }
+
+    }
 })();

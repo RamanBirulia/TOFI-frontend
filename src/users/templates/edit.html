@@ -3,10 +3,10 @@
         <h2>User Edit</h2>
         <ol class="breadcrumb">
             <li>
-                <a ui-sref="home">Home</a>
+                <a ui-sref="app.home">Home</a>
             </li>
             <li>
-                <a ui-sref="users.list">Users</a>
+                <a ui-sref="app.users.list">Users</a>
             </li>
             <li>
                 <strong>User Edit</strong>
@@ -14,4 +14,73 @@
         </ol>
     </div>
     <div class="col-lg-2"></div>
+</div>
+
+<div class="col-xs-12" style="margin-top: 15px">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Edit user <small>from royal club</small></h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-12 b-r">
+                    <form role="form" name="userAddForm">
+
+                        <div class="form-group" ng-class="{'has-error': submitted && userAddForm.$$controls[0].$invalid}">
+                            <label class="col-sm-2 control-label">Login</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="entity.login" placeholder="Enter login" class="form-control m-b" required="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error': submitted && userAddForm.$$controls[1].$invalid}">
+                            <label class="col-sm-2 control-label">Password</label>
+
+                            <div class="col-sm-10">
+                                <input type="password" ng-model="entity.password" placeholder="Enter password" class="form-control m-b" required="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error': submitted && userAddForm.$$controls[2].$invalid}">
+                            <label class="col-sm-2 control-label">Email</label>
+
+                            <div class="col-sm-10">
+                                <input type="email" ng-model="entity.email" placeholder="Enter email" class="form-control m-b" required="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error': submitted && userAddForm.$$controls[3].$invalid}">
+                            <label class="col-sm-2 control-label">Name</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="entity.name" placeholder="Enter name" class="form-control m-b" required="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error': submitted && userAddForm.$$controls[4].$invalid}">
+                            <label class="col-sm-2 control-label">Surmane</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="entity.surname" placeholder="Enter surname" class="form-control m-b" required="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Admin</label>
+                            <div class="col-sm-10">
+                                 <input type="checkbox" ng-true-value="'admin'" ng-false-value="'trader'" ng-model="entity.role">
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                    class="btn btn-sm btn-primary pull-right m-t-n-xs"
+                                    ng-click="ctrl.submit(userAddForm.$valid)">
+                                <strong>Update</strong></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

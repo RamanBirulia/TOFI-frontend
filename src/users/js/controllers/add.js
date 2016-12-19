@@ -2,24 +2,27 @@
     angular.module('tofi.users')
         .controller('userAddCtrl', addCtrl);
 
-    addCtrl.$inject = ['$scope', '$http'];
-    function addCtrl($scope, $http){
+    addCtrl.$inject = ['$scope', '$http', 'users', 'messages', '$state'];
+    function addCtrl($scope, $http, users, messages, $state){
         var ctrl = this;
 
         $scope.entity = {};
+        $scope.submitted = false;
 
-        ctrl.submit = function(){
+        ctrl.submit = function(formValid){
 
-            $scope.entity.admin = true;
+            if(formValid){
+                users.create($scope.entity)
+                    .then(function(data){
+                        messages.success('User ' + data.toString() + ' created successfully.')
+                        $state.go('app.users.list');
+                    }, function(response){
+                        messages.danger('Fail to create user.', response.data.errors);
+                    })
+            } else {
+                $scope.submitted = true;
+            }
 
-            $http.post('http://127.0.0.1:3000/api/register', $scope.entity)
-                .then(function successCallback(response) {
-                        debugger;
-                    }, function errorCallback(response) {
-                        debugger;
-                    });
-
-            console.info('%cSUBMIT', 'color:blue; font-size: 15px');
         }
     }
 

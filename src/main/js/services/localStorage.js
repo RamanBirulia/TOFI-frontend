@@ -1,6 +1,7 @@
 (function () {
-    angular.module('tofi')
-        .factory('localStorage', localStorageFactory);
+    angular
+        .module('tofi')
+        .factory('LocalStorage', localStorageFactory);
 
     function localStorageFactory() {
         return {

@@ -12,8 +12,9 @@
 
         $scope.submit = function(){
             currentUser.register($scope.entity)
-                .then(function(data){
-                    currentUser.login(data)
+                .then(function(response){
+                    debugger;
+                    currentUser.login(response.data)
                         .then(function(data){
                             $state.go('home');
                         }, function(error){

@@ -1,20 +1,24 @@
 {
-  "name": "tofi_frontend",
+  "name": "tofifi",
   "version": "0.0.0",
-  "description": "Awersome tofifi",
-  "main": "src/index.html",
+  "description": "tofifi",
+  "main": "index.html",
   "dependencies": {
-    "angular": "^1.5.9",
+    "angular": "^1.5.8",
+    "angular-chart.js": "^1.1.1",
     "angular-ui-router": "^0.3.2",
-    "bower": "^1.8.0"
+    "moment": "^2.17.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "none"
+    "url": "https://github.com/"
   },
-  "author": "Raman Yarilo Birulia",
+  "author": "Raman Birulia",
   "license": "MIT",
   "bugs": {
-    "url": "never"
+    "url": "https://github.com/"
   }
 }
