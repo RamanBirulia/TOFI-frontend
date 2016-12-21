@@ -27,7 +27,6 @@
                         if(!!LocalStorage.retrieve('token')){
                             return true;
                         } else {
-    //                      localStorage.store('redirectUrl', $location.path());
                             $timeout(function(){
                                 $state.go('login');
                             });

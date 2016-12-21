@@ -3,8 +3,8 @@
     angular.module('tofi')
         .controller('timeCtrl', timeCtrl);
 
-    timeCtrl.$inject = ['timeService', '$scope', '$rootScope'];
-    function timeCtrl(timeService, $scope, $rootScope){
+    timeCtrl.$inject = ['timeService', '$scope'];
+    function timeCtrl(timeService, $scope){
 
         var vm = this;
 

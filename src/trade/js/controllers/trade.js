@@ -2,9 +2,11 @@
     angular.module('tofi.trade')
         .controller('tradeCtrl', tradeCtrl);
 
-    tradeCtrl.$inject = ['$scope', 'trader', 'messages'];
-    function tradeCtrl($scope, trader, messages){
+    tradeCtrl.$inject = ['$scope', 'trader', 'messages', '$interval', 'timeService'];
+    function tradeCtrl($scope, trader, messages, $interval, timeService){
         var ctrl = this;
+
+
 
         ctrl.addDollar = trader.addDollars;
         ctrl.addEuro = trader.addEuro;
@@ -16,7 +18,7 @@
 
         ctrl.changeTab = function(id){
             $scope.tab = id;
-        }
+        };
 
         function newDate(days) {
           return moment().add(days, 'd');
@@ -38,7 +40,7 @@
             moment("20110221", "YYYYMMDD")
        ];
 
-        $scope.series = ['$'];
+        $scope.series = ['min deal', 'max deal', 'rate'];
 
         $scope.data = [
             [1, 1, 0.9, 1, 1, 0.9, 1, 1, 0.9, 0.9, 1, 1]
@@ -53,24 +55,86 @@
                 type: 'time',
                 time: {
                   displayFormats: {
-                    hour: 'L'
+                      millisecond:'D MMM',
+                      second: 'D MMM',
+                      minute: 'D MMM',
+                      hour:'D MMM',
+                      day:'D MMM',
+                      week:'D MMM',
+                      month:'D MMM',
+                      quarter:'D MMM',
+                      year:'D MMM'
                   }
                 }
-              }],
+              }]
             }
-        }
+        };
 
 
         ctrl.buyUsd = function(){
-            trader.buy(usd.price, usd.mount)
-                .then(function(response){
-                    messages.success('Deal started successfully');
-                })
+            if (+$scope.usd.price && $scope.usd.price > 0 &&  +$scope.usd.amount && $scope.usd.amount > 0){
+                trader.sell($scope.usd.price, $scope.usd.amount)
+                    .then(function(response){
+                        messages.success('Deal started successfully');
+                    }, function(error){
+                        messages.danger('Failed to start deal', error);
+                    })
+            } else {
+                messages.danger('Invalid Price or amount');
+            }
         };
 
         ctrl.buyEur = function(){
-            trader.buy(eur.price, eur.mount);
-        }
+            if (+$scope.eur.price && $scope.eur.price > 0 &&  +$scope.eur.amount && $scope.eur.amount > 0){
+                trader.buy($scope.eur.price, $scope.eur.amount)
+                    .then(function(response){
+                            messages.success('Deal started successfully');
+                        }, function(error){
+                        messages.danger('Failed to start deal', error);
+                    })
+            } else {
+                messages.danger('Invalid Price or amount');
+            }
+        };
 
+        ctrl.createAccounts = function(){
+            trader.createAccounts()
+                .then(function(response){
+                    messages.success('Accounts created successfully');
+                }, function(response){
+                    messages.danger('Failed to create accounts', response);
+                })
+        };
+
+        trader.resetNewClosedDeals();
+
+        trader.getCurrentTraderAccounts()
+            .then(function(data){
+                $scope.tradeAccounts = data;
+            });
+
+        trader.getLastRate()
+            .then(function(response){
+                $scope.rateObj = response;
+            });
+
+        $scope.timeObj = timeService.getTime();
+        $interval(updateRates, $scope.timeObj.rateTime);
+        function updateRates(){
+            trader.getRates()
+                .then(function(response){
+                    debugger;
+                    $scope.labels = [];
+                    $scope.data = [[],[],[]];
+                    response.map(function(item){
+                        $scope.labels.push(moment(item.date).subtract(3, 'hours'));
+                        $scope.data[0].push(item.min);
+                        $scope.data[1].push(item.max);
+                        $scope.data[2].push(item.rate)
+                    });
+                }, function(erros){
+                    debugger;
+                })
+        }
     }
 })();

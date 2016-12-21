@@ -2,8 +2,8 @@
     angular.module('tofi.users')
         .controller('userListCtrl', listCtrl);
 
-    listCtrl.$inject = ['users', '$scope', 'allUsers', 'messages'];
-    function listCtrl(users, $scope, allUsers, messages){
+    listCtrl.$inject = ['users', '$scope', 'allUsers', 'messages', '$state'];
+    function listCtrl(users, $scope, allUsers, messages, $state){
         var ctrl = this;
 
         $scope.users = allUsers;
@@ -12,8 +12,9 @@
             users.remove(id)
                 .then(function(data){
                     messages.success('User deleted successfully');
+                    $state.reload();
                 }, function(error){
-                    messages.danger('User deleted successfully', error);
+                    messages.danger('User deleted unsuccessfully', error);
                 })
         }
 

@@ -10,19 +10,17 @@
 
         var currentUserEntity = function() {
 
-            this.info = currentUser;
-
             this.register = function(obj){
                 return $http.post('/api/register', obj);
-            }
+            };
 
             this.login = function(obj){
                 return $http.post('/api/authenticate', obj);
-            }
+            };
 
             this.updateInfo = function(){
                 return update();
-            }
+            };
 
             this.getCurrentUser = function(){
                 if (currentUser) {
@@ -30,7 +28,7 @@
                 } else {
                     return update();
                 }
-            }
+            };
 
             function update(){
                 return $http.get('/api/users/me?token=' + LocalStorage.retrieve('token'))
@@ -38,7 +36,7 @@
                         currentUser = response.data;
                         currentUser.toString = function(){
                             return (this.name || ' ') + ' ' + (this.surname || ' ');
-                        }
+                        };
                         return response.data;
                     })
             }

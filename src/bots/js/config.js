@@ -11,6 +11,7 @@
         $stateProvider
             .state('app.bots', {
                 abstract: true,
+                template: '<ui-view/>',
                 url: "/bots"
             })
 

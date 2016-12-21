@@ -2,8 +2,8 @@
     angular.module('tofi.bots')
         .controller('botsListCtrl', botsListCtrl);
 
-    botsListCtrl.$inject = ['$scope'];
-    function botsListCtrl($scope){
+    botsListCtrl.$inject = ['$scope', 'bots'];
+    function botsListCtrl($scope, bots){
 
     }
 

@@ -1,5 +1,5 @@
 
-<div style="margin: 10px;width: 350px;z-index: 9999;right: 0;position: fixed;">
+<div style="margin: 10px;width: 350px;z-index: 9999;right: 0;top: 50px;position: fixed;">
     <div class="alert alert-danger alert-dismissable" ng-repeat="message in messages.danger"
         ng-click="ctrl.removeMessage('danger', message)">
         <p><strong>{{message.title}}</strong></p>
@@ -55,7 +55,7 @@
                     </a>
                 </li>
                 <li ng-if="currentUser.role === 'admin'">
-                    <a ui-sref="app.bots">
+                    <a ui-sref="app.bots.list">
                         <i class="fa fa-reddit"></i> <span>Bots</span>
                     </a>
                 </li>
@@ -88,19 +88,21 @@
                 </ul>
 
                 <ul class="nav navbar-top-links navbar-right">
-                    <li ng-if="currentUser.dollars">
-                        <span class="label label-primary">{{currentUser.dollars}} <i class="fa fa-dollar"></i> </span>
-                    </li>
-                    <li ng-if="currentUser.euro">
-                        <span class="label label-info">{{currentUser.euro}} <i class="fa fa-eur"></i> </span>
-                    </li>
                     <li>
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-bell"></i>  <span class="label label-warning">8</span>
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" ng-show="newClosedDeals"
+                           ng-click="ctrl.resetNewClosedDeals()">
+                            <i class="fa fa-bell"></i>  <span class="label label-warning">{{newClosedDeals}}</span>
                         </a>
                     </li>
-
-
+                    <li ng-show="currentTrader[0].amount || currentTrader[0].amount === 0">
+                        <span class="label label-primary">{{currentTrader[0].amount}} <i class="fa fa-dollar"></i> </span>
+                    </li>
+                    <li ng-show="currentTrader[1].amount || currentTrader[1].amount === 0">
+                        <span class="label label-info">{{currentTrader[1].amount}} <i class="fa fa-eur"></i> </span>
+                    </li>
+                    <li>
+                        <span>{{timeObj.currentDate | date:'d MMM yyyy'}}</span>
+                    </li>
                     <li>
                         <a ng-click="ctrl.logout()">
                             <i class="fa fa-sign-out"></i> Log out
