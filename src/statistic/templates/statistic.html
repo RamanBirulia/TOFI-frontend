@@ -17,7 +17,11 @@
     <div class="ibox-title">
         <h5>Closed Deals Statistic</h5>
     </div>
+
     <div class="ibox-content">
+        <div ng-click="ctrl.refresh()">
+            <a class="btn btn-primary ">Refresh</a>
+        </div>
         <table class="table table-striped table-bordered table-hover dataTables-example dataTable dtr-inline"
                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info"
                style="margin-top: 10px">
