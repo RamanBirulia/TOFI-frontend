@@ -6,7 +6,6 @@
     function statisticCtrl($scope, trader){
         var ctrl = this;
         ctrl.refresh = function(){
-            debugger;
             trader.getDeals()
                 .then(function (response) {
                     $scope.deals = response.myDeals;

@@ -1,9 +1,9 @@
 (function(){
-    angular.module('tofi.bots', [])
+    angular.module('tofi.bots', []);
 
     angular
         .module('tofi.bots')
-        .config(config)
+        .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
     function config($stateProvider, $urlRouterProvider) {
@@ -13,7 +13,7 @@
                 abstract: true,
                 template: '<ui-view/>',
                 url: "/bots"
-            })
+            });
 
 
         $stateProvider
@@ -22,7 +22,7 @@
                 controller: 'botsListCtrl',
                 controllerAs: 'ctrl',
                 templateUrl: "src/bots/templates/list.html"
-            })
+            });
 
         $stateProvider
             .state('app.bots.add', {

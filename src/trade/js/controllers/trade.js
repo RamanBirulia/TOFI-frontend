@@ -20,17 +20,9 @@
             $scope.tab = id;
         };
 
-        function newDate(days) {
-          return moment().add(days, 'd');
-        }
-
         $scope.labels = null;
-
-
         $scope.series = ['min deal', 'max deal', 'rate'];
-
         $scope.data = null;
-
         $scope.options = {
             animation: {
                 duration: 0

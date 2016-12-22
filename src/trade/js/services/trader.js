@@ -98,10 +98,15 @@
         function getDeals(){
             return $http.get('/api/deals/my?token=' + LocalStorage.retrieve('token'))
                 .then(function(response){
-                    deals = {
-                        myDeals: response.data.results,
-                        newDealsCount: response.data.count
-                    };
+                    if (!deals){
+                        deals = {
+                            myDeals: response.data.results,
+                            newDealsCount: response.data.count
+                        };
+                    } else {
+                        deals.myDeals = response.data.results;
+                        deals.newDealsCount = response.data.count;
+                    }
                     return deals;
                 })
         }

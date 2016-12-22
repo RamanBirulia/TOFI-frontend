@@ -95,11 +95,11 @@
                         </a>
                     </li>
                     <li ng-show="accounts.info[0].amount || accounts.info[0].amount === 0">
-                        <span class="label label-primary">{{accounts.info[0].amount}} <i class="fa fa-dollar"></i> </span>
+                        <span class="label label-primary">{{accounts.info[0].amount.toFixed(2)}} <i class="fa fa-dollar"></i> </span>
                     </li>
 
                     <li ng-show="accounts.info[1].amount || accounts.info[1].amount === 0">
-                        <span class="label label-info">{{accounts.info[1].amount}} <i class="fa fa-eur"></i> </span>
+                        <span class="label label-info">{{accounts.info[1].amount.toFixed(2)}} <i class="fa fa-eur"></i> </span>
                     </li>
                     <li>
                         <span>{{timeObj.currentTime | date:'d MMM yyyy'}}</span>

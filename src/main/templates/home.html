@@ -14,8 +14,17 @@
         <h5>USD/EUR exchange rate</h5>
     </div>
     <div class="ibox-content">
-        <canvas id="line" class="chart chart-line" chart-data="data"
-                chart-labels="labels" chart-series="series" chart-options="options">
-        </canvas>
+        <div class="row">
+            <div class="col-sm-12 b-r">
+                <div class="col-md-12" ng-if="data">
+                    <canvas id="line" class="chart chart-line" chart-data="data" style="margin-top: 23px;"
+                            chart-labels="labels" chart-series="series" chart-options="options">
+                    </canvas>
+                </div>
+                <div class="col-md-12" ng-if="!data">
+                    <img src="src/main/fonts/progress.gif" width="400" alt="Loading...">
+                </div>
+            </div>
+        </div>
     </div>
 </div>

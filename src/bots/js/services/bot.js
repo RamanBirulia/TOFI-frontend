@@ -9,20 +9,39 @@
         var botsEntity = function() {
 
             this.getAll = function () {
-                return $http.get();
-            }
+                return $http.get('/api/bots?token=' + LocalStorage.retrieve('token'))
+                    .then(function(response){
+                        return response.data.results;
+                    })
+            };
 
             this.create = function(entity){
-                return $http.post();
-            }
+                return $http.post('/api/bots?token=' + LocalStorage.retrieve('token'), entity)
+                    .then(function(response){
+                        debugger;
+                        return response;
+                    })
+            };
 
-            this.remove = function(id){
-                return $http.delete();
-            }
-        }
+            this.get = function(id){
+                return $http.get('/api/bots/' + id + '?token=' + LocalStorage.retrieve('token'))
+                    .then(function(response){
+                        debugger;
+                        return response;
+                    })
+            };
 
-        usersEntity.prototype = new usersEntity();
-        return new usersEntity();
+            // this.remove = function(id){
+            //     return $http.delete()
+            //         .then(function(response){
+            //             debugger;
+            //             return response;
+            //         })
+            // }
+        };
+
+        botsEntity.prototype = new botsEntity();
+        return new botsEntity();
     }
 })();
 

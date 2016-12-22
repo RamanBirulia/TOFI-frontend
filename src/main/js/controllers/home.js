@@ -3,51 +3,55 @@
     angular.module('tofi')
         .controller('homeCtrl', homeCtrl);
 
-    homeCtrl.$inject = ['$http', 'currentUser', '$scope', 'messages', '$interval'];
-    function homeCtrl($http, currentUser, $scope, messages, $interval){
+    homeCtrl.$inject = ['$scope', 'trader'];
+    function homeCtrl($scope, trader){
 
-        $scope.labels = [
-            moment("20110210", "YYYYMMDD"),
-            moment("20110211", "YYYYMMDD"),
-            moment("20110212", "YYYYMMDD"),
-            moment("20110213", "YYYYMMDD"),
-            moment("20110214", "YYYYMMDD"),
-            moment("20110215", "YYYYMMDD"),
-            moment("20110216", "YYYYMMDD"),
-            moment("20110217", "YYYYMMDD"),
-            moment("20110218", "YYYYMMDD"),
-            moment("20110219", "YYYYMMDD"),
-            moment("20110220", "YYYYMMDD"),
-            moment("20110221", "YYYYMMDD")
-       ];
-
-        $scope.series = ['$'];
-
-        $scope.data = [
-            [1, 1, 0.9, 1, 1, 0.9, 1, 1, 0.9, 0.9, 1, 1]
-        ];
-
+        $scope.labels = null;
+        $scope.series = ['min deal', 'max deal', 'rate'];
+        $scope.data = null;
         $scope.options = {
             animation: {
                 duration: 0
             },
             scales: {
-              xAxes: [{
-                type: 'time',
-                time: {
-                  displayFormats: {
-                    hour: 'L'
-                  }
-                }
-              }]
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            millisecond:'D MMM',
+                            second: 'D MMM',
+                            minute: 'D MMM',
+                            hour:'D MMM',
+                            day:'D MMM',
+                            week:'D MMM',
+                            month:'D MMM',
+                            quarter:'D MMM',
+                            year:'D MMM'
+                        }
+                    }
+                }]
             }
         };
 
+        trader.getRates()
+            .then(function(response){
+                $scope.rateInfo = response;
+            });
 
-        $interval(function(){
-            $scope.labels  = $scope.labels.slice(1).concat([moment($scope.labels[$scope.labels.length-1]).add(1, 'days')]);
-            $scope.data[0]  = $scope.data[0].slice(1).concat(Math.random());
-        }, 2000);
+        $scope.$watch('rateInfo', onRateInfoUpdate, true);
+
+        function onRateInfoUpdate(newVal){
+            if (!newVal){return;}
+            $scope.labels = [];
+            $scope.data = [[], [], []];
+            newVal.ratesArray.forEach(function(item){
+                $scope.labels.push(moment(item.date));
+                $scope.data[0].push(item.min);
+                $scope.data[1].push(item.max);
+                $scope.data[2].push(item.rate);
+            })
+        }
+
     }
 
 })();
