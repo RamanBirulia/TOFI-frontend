@@ -2,31 +2,17 @@
     angular.module('tofi.statistic')
         .controller('statisticCtrl', statisticCtrl);
 
-    statisticCtrl.$inject = ['$scope', 'trader', 'messages'];
-    function statisticCtrl($scope, trader, messages){
+    statisticCtrl.$inject = ['$scope', 'trader'];
+    function statisticCtrl($scope, trader){
         var ctrl = this;
-
-        trader.getDeals()
-            .then(function (response) {
-                $scope.deals = response.results;
-            });
-
         ctrl.refresh = function(){
+            debugger;
             trader.getDeals()
                 .then(function (response) {
-                    messages.success('Statistic refresh sucessfully');
-                    debugger;
-
-
-
-
-
-
-                    $scope.deals = response.results;
-                }, function (errors) {
-                    messages.danger('Failed to refresh statistic', errors);
+                    $scope.deals = response.myDeals;
                 })
         };
+        ctrl.refresh();
     }
 
 })();

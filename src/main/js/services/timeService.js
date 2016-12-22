@@ -3,22 +3,26 @@
         .module('tofi')
         .factory('timeService', timeFactory);
 
-    timeFactory.$inject = ['$http', '$rootScope'];
-    function timeFactory($http, $rootScope) {
+    timeFactory.$inject = ['$http', '$q'];
+    function timeFactory($http, $q) {
 
         var time = {
-            currentDate: null,
-            rateTime: 10000,
-            dealTime: 1000
+            old: true,
+            rateTime: 5000,
+            dealTime: 5000
         };
 
-        return {
+        var timeObj =  {
             upRate:upRate,
             downRate:downRate,
             upDeal:upDeal,
             downDeal:downDeal,
 
-            getTime: getTime
+            getRateTime: getRateTime,
+            getDealTime: getDealTime,
+
+            getTime: getTime,
+            setTime: setTime
         };
 
         function upRate(){
@@ -50,7 +54,42 @@
         }
 
         function getTime(){
-            return time;
+            if (time.old){
+                return $q.all([timeObj.getRateTime(), timeObj.getDealTime()])
+                    .then(function(response){
+                        time.old = false;
+                        return time;
+                    });
+            } else {
+                return $q.when(time);
+            }
+
         }
+
+        function setTime(t){
+            if (!time){
+                time = {};
+            }
+            time.currentTime = t;
+        }
+
+        function getRateTime(){
+            return $http.get('/api/variables/deal-interval')
+                .then(function(response){
+                    time.dealTime = response.data.value;
+                    return time.dealTime;
+                })
+        }
+
+        function getDealTime(){
+            return $http.get('/api/variables/rate-interval')
+                .then(function(response){
+                    time.rateTime = response.data.value;
+                    return time.rateTime;
+                })
+        }
+
+
+        return timeObj;
     }
 })();

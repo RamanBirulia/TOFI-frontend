@@ -11,28 +11,34 @@
         }
 
         $scope.messages = messages.getAllMessageInfo();
-        $scope.newClosedDeals = 0;
 
+
+
+        trader.getRates()
+            .then(function(data){
+                $scope.rate = data;
+                timeService.getTime()
+                    .then(function(response){
+                        $scope.timeObj =response;
+                        trader.startUpdateRate();
+                        trader.startUpdateDeals();
+                    });
+            });
+
+        trader.getDeals()
+            .then(function(data){
+                $scope.deals = data;
+            });
 
         currentUser.getCurrentUser()
             .then(function(data){
                 $scope.currentUser = data;
-            }, function(error){
-                debugger;
             });
 
         trader.getCurrentTraderAccounts()
             .then(function(data){
-                $scope.currentTrader = data;
-            }, function(error){
-                debugger;
+                $scope.accounts = data;
             });
-
-        $scope.timeObj = timeService.getTime();
-
-        $interval(updateRate, $scope.timeObj.rateTime );
-        $interval(updateTimeAndMoney, $scope.timeObj.dealTime );
-
 
         ctrl.logout = function(){
             LocalStorage.remove('token');
@@ -44,32 +50,12 @@
         };
 
         ctrl.resetNewClosedDeals = function(){
-            trader.resetNewClosedDeals();
-            $scope.newClosedDeals = 0;
+            trader.resetNewDeals();
         };
 
-        function updateRate(){
-            trader.getLastRate()
-                .then(function(response){
-                    // debugger;
-                }, function(error){
-                    // debugger;
-                })
-        }
-
-        function updateTimeAndMoney(){
-            trader.getNewClosedDeal()
-                .then(function(response){
-                    $scope.newClosedDeals += response.count;
-                    $scope.currentTrader[0] = response.accounts[0];
-                    $scope.currentTrader[1] = response.accounts[1];
-                })
-        }
-
-
-
-
-
+        $scope.$on('$destroy', function() {
+            trader.stopUpdate();
+        })
     }
 
 })();

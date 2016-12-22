@@ -9,11 +9,12 @@
 
     angular
         .module('tofi')
-        .config(config)
+        .config(config);
 
-    config.$inject = ['$stateProvider', '$urlRouterProvider'];
-    function config($stateProvider, $urlRouterProvider) {
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$qProvider'];
+    function config($stateProvider, $urlRouterProvider, $qProvider) {
 
+        // $qProvider.errorOnUnhandledRejections(false);
         $urlRouterProvider.otherwise("/login");
 
         $stateProvider

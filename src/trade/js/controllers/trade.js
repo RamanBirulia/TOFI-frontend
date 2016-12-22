@@ -24,27 +24,12 @@
           return moment().add(days, 'd');
         }
 
+        $scope.labels = null;
 
-        $scope.labels = [
-            moment("20110210", "YYYYMMDD"),
-            moment("20110211", "YYYYMMDD"),
-            moment("20110212", "YYYYMMDD"),
-            moment("20110213", "YYYYMMDD"),
-            moment("20110214", "YYYYMMDD"),
-            moment("20110215", "YYYYMMDD"),
-            moment("20110216", "YYYYMMDD"),
-            moment("20110217", "YYYYMMDD"),
-            moment("20110218", "YYYYMMDD"),
-            moment("20110219", "YYYYMMDD"),
-            moment("20110220", "YYYYMMDD"),
-            moment("20110221", "YYYYMMDD")
-       ];
 
         $scope.series = ['min deal', 'max deal', 'rate'];
 
-        $scope.data = [
-            [1, 1, 0.9, 1, 1, 0.9, 1, 1, 0.9, 0.9, 1, 1]
-        ];
+        $scope.data = null;
 
         $scope.options = {
             animation: {
@@ -106,35 +91,28 @@
                 })
         };
 
-        trader.resetNewClosedDeals();
-
         trader.getCurrentTraderAccounts()
-            .then(function(data){
-                $scope.tradeAccounts = data;
-            });
-
-        trader.getLastRate()
             .then(function(response){
-                $scope.rateObj = response;
+                $scope.tradeAccounts = response;
             });
 
-        $scope.timeObj = timeService.getTime();
-        $interval(updateRates, $scope.timeObj.rateTime);
-        function updateRates(){
-            trader.getRates()
-                .then(function(response){
-                    debugger;
-                    $scope.labels = [];
-                    $scope.data = [[],[],[]];
-                    response.map(function(item){
-                        $scope.labels.push(moment(item.date).subtract(3, 'hours'));
-                        $scope.data[0].push(item.min);
-                        $scope.data[1].push(item.max);
-                        $scope.data[2].push(item.rate)
-                    });
-                }, function(erros){
-                    debugger;
-                })
+        trader.getRates()
+            .then(function(response){
+                $scope.rateInfo = response;
+            });
+
+        $scope.$watch('rateInfo', onRateInfoUpdate, true);
+
+        function onRateInfoUpdate(newVal){
+            if (!newVal){return;}
+            $scope.labels = [];
+            $scope.data = [[], [], []];
+            newVal.ratesArray.forEach(function(item){
+                $scope.labels.push(moment(item.date));
+                $scope.data[0].push(item.min);
+                $scope.data[1].push(item.max);
+                $scope.data[2].push(item.rate);
+            })
         }
     }
 })();

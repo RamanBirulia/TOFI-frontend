@@ -13,16 +13,11 @@
         $scope.submit = function(){
             currentUser.register($scope.entity)
                 .then(function(response){
-                    debugger;
                     currentUser.login(response.data)
                         .then(function(data){
-                            $state.go('home');
-                        }, function(error){
-                            $state.go('login');
+                            $state.go('app.home');
                         })
-                }, function(error){
-                    console.error('register failed!');
-                })
+                });
         }
     }
 

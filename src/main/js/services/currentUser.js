@@ -15,22 +15,14 @@
             };
 
             this.login = function(obj){
-                return $http.post('/api/authenticate', obj);
-            };
-
-            this.updateInfo = function(){
-                return update();
+                return $http.post('/api/authenticate', obj)
+                    .then(function(response){
+                        LocalStorage.store('token', response.data.token);
+                        return response;
+                    })
             };
 
             this.getCurrentUser = function(){
-                if (currentUser) {
-                    return $q.when(currentUser);
-                } else {
-                    return update();
-                }
-            };
-
-            function update(){
                 return $http.get('/api/users/me?token=' + LocalStorage.retrieve('token'))
                     .then(function(response){
                         currentUser = response.data;
@@ -39,7 +31,7 @@
                         };
                         return response.data;
                     })
-            }
+            };
         };
 
         currentUserEntity.prototype = new currentUserEntity();

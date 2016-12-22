@@ -15,7 +15,8 @@
 
 <div class="ibox float-e-margins" style="margin-top: 10px">
     <div class="ibox-title">
-        <h5>Closed Deals Statistic</h5>
+        <h5 ng-if="deals.count">Your last {{deals.count}} deal</h5>
+        <h5>You have no deals yet</h5>
     </div>
 
     <div class="ibox-content">
@@ -27,6 +28,7 @@
                style="margin-top: 10px">
             <thead>
                 <tr role="row">
+                    <th style="width: 10px">Closed</th>
                     <th aria-controls="DataTables_Table_0">Start Date</th>
                     <th aria-controls="DataTables_Table_0">End Date</th>
                     <th aria-controls="DataTables_Table_0">Side</th>
@@ -37,8 +39,20 @@
 
             <tbody>
                 <tr class="gradeA odd" role="row" ng-repeat="deal in deals">
+                    <td style="text-align: center;padding: 5px">
+                        <span ng-show="deal.status === 'CLOSED'"
+                              class="btn btn-info btn-circle btn-sm"
+                              type="button"
+                                style="margin: 0">
+                            <i class="fa fa-check"></i></span>
+                        <span ng-show="deal.status !== 'CLOSED'"
+                              class="btn btn-default btn-circle btn-sm"
+                              type="button"
+                                style="margin: 0">
+                            <i class="fa fa-times"></i></span>
+                    </td>
                     <td>{{deal.dateOpened | date:'medium'}}</td>
-                    <td>{{deal.dateClosed | date:'medium'}}</td>
+                    <td>{{(deal.dateClosed | date:'medium') || 'Not closed yet'}}</td>
                     <td>
                         <span ng-show="deal.side === 'BUY'" class="label label-warning">BUY</span>
                         <span ng-show="deal.side === 'SELL'" class="label label-primary">SELL</span>

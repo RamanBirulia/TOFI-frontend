@@ -94,14 +94,15 @@
                             <i class="fa fa-bell"></i>  <span class="label label-warning">{{newClosedDeals}}</span>
                         </a>
                     </li>
-                    <li ng-show="currentTrader[0].amount || currentTrader[0].amount === 0">
-                        <span class="label label-primary">{{currentTrader[0].amount}} <i class="fa fa-dollar"></i> </span>
+                    <li ng-show="accounts.info[0].amount || accounts.info[0].amount === 0">
+                        <span class="label label-primary">{{accounts.info[0].amount}} <i class="fa fa-dollar"></i> </span>
                     </li>
-                    <li ng-show="currentTrader[1].amount || currentTrader[1].amount === 0">
-                        <span class="label label-info">{{currentTrader[1].amount}} <i class="fa fa-eur"></i> </span>
+
+                    <li ng-show="accounts.info[1].amount || accounts.info[1].amount === 0">
+                        <span class="label label-info">{{accounts.info[1].amount}} <i class="fa fa-eur"></i> </span>
                     </li>
                     <li>
-                        <span>{{timeObj.currentDate | date:'d MMM yyyy'}}</span>
+                        <span>{{timeObj.currentTime | date:'d MMM yyyy'}}</span>
                     </li>
                     <li>
                         <a ng-click="ctrl.logout()">

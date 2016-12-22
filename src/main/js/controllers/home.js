@@ -5,11 +5,6 @@
 
     homeCtrl.$inject = ['$http', 'currentUser', '$scope', 'messages', '$interval'];
     function homeCtrl($http, currentUser, $scope, messages, $interval){
-//
-        function newDate(days) {
-          return moment().add(days, 'd');
-        }
-
 
         $scope.labels = [
             moment("20110210", "YYYYMMDD"),
@@ -44,9 +39,9 @@
                     hour: 'L'
                   }
                 }
-              }],
+              }]
             }
-        }
+        };
 
 
         $interval(function(){

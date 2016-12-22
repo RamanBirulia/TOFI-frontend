@@ -30,17 +30,20 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="col-md-12" style="background-color: #f3f3f4;">
-                    <p><h3>Official rate: {{rateObj.rate}}</h3></p>
-                    <p><h5>Min rate: {{rateObj.min}}</h5></p>
-                    <p><h5>Max rate: {{rateObj.max}}</h5></p>
+                    <p><h3>Official rate: {{rateInfo.lastRate.rate}}</h3></p>
+                    <p><h5>Min rate: {{rateInfo.lastRate.min}}</h5></p>
+                    <p><h5>Max rate: {{rateInfo.lastRate.max}}</h5></p>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" ng-if="data">
                     <canvas id="line" class="chart chart-line" chart-data="data" style="margin-top: 23px;"
                         chart-labels="labels" chart-series="series" chart-options="options">
                     </canvas>
                 </div>
+                <div class="col-md-12" ng-if="!data">
+                    <img src="src/main/fonts/progress.gif" width="400" alt="Loading...">
+                </div>
             </div>
-            <div class="col-md-6" ng-if="tradeAccounts[0]">
+            <div class="col-md-6" ng-if="tradeAccounts.info[0]">
                 <div class="panel blank-panel" style="background-color: #f3f3f4;">
 
                     <div class="panel-heading">
@@ -48,10 +51,10 @@
                         <div class="panel-options">
                             <ul class="nav nav-tabs">
                                 <li ng-class="{'active': tab == 1}" ng-click="ctrl.changeTab(1)">
-                                    <a data-toggle="tab">Buy <i class="fa fa-dollar"></i></a>
+                                    <a data-toggle="tab">Sell <i class="fa fa-eur"></i></a>
                                 </li>
                                 <li ng-class="{'active': tab == 2}" ng-click="ctrl.changeTab(2)">
-                                    <a data-toggle="tab">Sell <i class="fa fa-dollar"></i></a>
+                                    <a data-toggle="tab">Buy <i class="fa fa-eur"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -62,10 +65,9 @@
                         <div class="tab-content">
                             <div ng-show="tab == 1" class="tab-pane active">
                                 <div>
-                                    <h3 class="m-t-none m-b">Buy USD for EUR</h3>
                                     <form role="form">
                                         <div class="form-group">
-                                            <label>Price</label>
+                                            <label>Dollar Price for 1 <i class="fa fa-eur"></i></label>
                                             <input type="text" class="form-control" ng-model="usd.price">
                                         </div>
                                         <div class="form-group">
@@ -84,10 +86,9 @@
 
                             <div ng-show="tab == 2" class="tab-pane active">
                                 <div>
-                                    <h3 class="m-t-none m-b">Buy EUR for USD</h3>
                                     <form role="form">
                                         <div class="form-group">
-                                            <label>Price</label>
+                                            <label>Maximal Price for 1 <i class="fa fa-eur"></i></label>
                                             <input type="text" class="form-control" ng-model="eur.price">
                                         </div>
                                         <div class="form-group">
@@ -107,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" ng-if="!tradeAccounts[0]">
+            <div class="col-md-6" ng-if="!tradeAccounts.info[0]">
                 <div class="panel blank-panel col-xs-12" style="background-color: #f3f3f4;padding:15px">
                     <h3>Please create accounts to start trade</h3>
                     <button type="button" ng-click="ctrl.createAccounts()"

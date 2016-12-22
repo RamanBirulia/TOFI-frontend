@@ -1,9 +1,9 @@
 (function(){
-    angular.module('tofi.statistic', [])
+    angular.module('tofi.statistic', []);
 
     angular
         .module('tofi.statistic')
-        .config(config)
+        .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
     function config($stateProvider, $urlRouterProvider) {

@@ -8,7 +8,10 @@
 
         var vm = this;
 
-        $scope.time = timeService.getTime();
+        timeService.getTime()
+            .then(function(response){
+                $scope.time = response;
+            });
 
         vm.upRate = timeService.upRate;
         vm.downRate = timeService.downRate;
