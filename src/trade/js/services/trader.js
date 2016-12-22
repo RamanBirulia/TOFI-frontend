@@ -149,9 +149,7 @@
             function updateDeals(){
                 $http.get('/api/deals/closed/new?token=' + LocalStorage.retrieve('token'))
                     .then(function(response){
-                        if (response.data.results.length){
-                            deals.newDealsCount += response.data.amount;
-                        }
+                        deals.newDealsCount += response.data.count;
                     });
                 traderEntity.updateAccounts();
             }
@@ -194,7 +192,9 @@
 
 
         function resetNewDeals(){
-            deals.newDealsCount = 0;
+            if (deals){
+                deals.newDealsCount = 0;
+            }
         }
 
         return traderEntity;

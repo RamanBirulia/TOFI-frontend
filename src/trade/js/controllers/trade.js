@@ -55,6 +55,7 @@
             }
         };
 
+        trader.resetNewDeals();
 
         ctrl.buyUsd = function(){
             if (+$scope.usd.price && $scope.usd.price > 0 &&  +$scope.usd.amount && $scope.usd.amount > 0){

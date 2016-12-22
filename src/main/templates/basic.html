@@ -89,9 +89,9 @@
 
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" ng-show="newClosedDeals"
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" ng-show="deals.newDealsCount"
                            ng-click="ctrl.resetNewClosedDeals()">
-                            <i class="fa fa-bell"></i>  <span class="label label-warning">{{newClosedDeals}}</span>
+                            <i class="fa fa-bell"></i>  <span class="label label-warning">{{deals.newDealsCount}}</span>
                         </a>
                     </li>
                     <li ng-show="accounts.info[0].amount || accounts.info[0].amount === 0">

@@ -12,8 +12,6 @@
 
         $scope.messages = messages.getAllMessageInfo();
 
-
-
         trader.getRates()
             .then(function(data){
                 $scope.rate = data;
