@@ -105,7 +105,6 @@
                         };
                     } else {
                         deals.myDeals = response.data.results;
-                        deals.newDealsCount = response.data.count;
                     }
                     return deals;
                 })

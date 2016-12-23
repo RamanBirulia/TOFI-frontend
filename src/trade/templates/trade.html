@@ -65,19 +65,23 @@
                         <div class="tab-content">
                             <div ng-show="tab == 1" class="tab-pane active">
                                 <div>
-                                    <form role="form">
-                                        <div class="form-group">
+                                    <form role="form" name="sellForm">
+                                        <div class="form-group" ng-class="{'has-error': sellForm.$$controls[0].$invalid}">
                                             <label>Dollar Price for 1 <i class="fa fa-eur"></i></label>
-                                            <input type="text" class="form-control" ng-model="usd.price">
+                                            <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                                                   step="0.01" class="form-control"
+                                                   ng-model="usd.price" min="0.01">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" ng-class="{'has-error': sellForm.$$controls[1].$invalid}">
                                             <label>Amount</label>
-                                            <input type="number" class="form-control" ng-model="usd.amount">
+                                            <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                                                   step="0.01" class="form-control"
+                                                   ng-model="usd.amount" min="0.01">
                                         </div>
                                         <div>
                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs"
                                                     type="submit"
-                                                    ng-click="ctrl.buyUsd()">
+                                                    ng-click="sellForm.$valid && ctrl.buyUsd()">
                                                 <strong>Buy</strong></button>
                                         </div>
                                     </form>
@@ -86,19 +90,23 @@
 
                             <div ng-show="tab == 2" class="tab-pane active">
                                 <div>
-                                    <form role="form">
-                                        <div class="form-group">
+                                    <form role="form" name="buyForm">
+                                        <div class="form-group" ng-class="{'has-error': buyForm.$$controls[0].$invalid}">
                                             <label>Maximal Price for 1 <i class="fa fa-eur"></i></label>
-                                            <input type="text" class="form-control" ng-model="eur.price">
+                                            <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                                                   step="0.01" class="form-control"
+                                                   ng-model="eur.price" min="0.01">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" ng-class="{'has-error': buyForm.$$controls[1].$invalid}">
                                             <label>Amount</label>
-                                            <input type="number" class="form-control" ng-model="eur.amount">
+                                            <input type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                                                   step="0.01" class="form-control"
+                                                   ng-model="eur.amount" min="0.01">
                                         </div>
                                         <div>
                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs"
                                                     type="submit"
-                                                    ng-click="ctrl.buyEur()">
+                                                    ng-click="buyForm.$valid &&  ctrl.buyEur()">
                                                 <strong>Buy</strong></button>
                                         </div>
                                     </form>

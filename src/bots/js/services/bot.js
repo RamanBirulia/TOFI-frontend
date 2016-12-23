@@ -5,7 +5,6 @@
 
     botsService.$inject = ['$http', 'LocalStorage'];
     function botsService($http, LocalStorage) {
-
         var botsEntity = function() {
 
             this.getAll = function () {
@@ -24,10 +23,9 @@
             };
 
             this.get = function(id){
-                return $http.get('/api/bots/' + id + '?token=' + LocalStorage.retrieve('token'))
+                return $http.get('/api/bots/' + id + '/logs?token=' + LocalStorage.retrieve('token'))
                     .then(function(response){
-                        debugger;
-                        return response;
+                        return response.data.results;
                     })
             };
 

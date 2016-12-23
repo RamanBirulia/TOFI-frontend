@@ -32,6 +32,17 @@
                 templateUrl: "src/bots/templates/add.html"
             })
 
+            .state('app.bots.view', {
+                url: "/view/:login",
+                controller: 'botsViewCtrl',
+                controllerAs: 'ctrl',
+                templateUrl: "src/bots/templates/view.html",
+                resolve: {
+                    entity: function(bots, $stateParams){
+                        return bots.get($stateParams.login);
+                    }
+                }
+            });
 
     }
 })();

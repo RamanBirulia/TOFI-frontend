@@ -18,9 +18,9 @@
         <h5>Active Bot Table</h5>
     </div>
     <div class="ibox-content">
-        <div class="">
-            <a ui-sref="app.bots.add" class="btn btn-primary ">Add Bot</a>
-        </div>
+        <!--<div class="">-->
+            <!--<a ui-sref="app.bots.add" class="btn btn-primary ">Add Bot</a>-->
+        <!--</div>-->
 
         <table class="table table-striped table-bordered table-hover dataTables-example dataTable dtr-inline"
                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info"
@@ -33,7 +33,7 @@
 
             <tbody>
             <tr class="gradeA odd" role="row" ng-repeat="bot in bots">
-                <td ui-sref="app.users.edit({id: user._id})">{{bot.botId}}</td>
+                <td ui-sref="app.bots.view({login: bot.botId})">{{bot.botId}}</td>
             </tr>
             </tbody>
         </table>

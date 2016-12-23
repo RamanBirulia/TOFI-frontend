@@ -49,6 +49,7 @@
 
         ctrl.resetNewClosedDeals = function(){
             trader.resetNewDeals();
+            $state.go('app.statistic');
         };
 
         $scope.$on('$destroy', function() {

@@ -16,7 +16,7 @@
 <div class="ibox float-e-margins" style="margin-top: 10px">
     <div class="ibox-title">
         <h5 ng-if="deals.count">Your last {{deals.count}} deal</h5>
-        <h5>You have no deals yet</h5>
+        <h5 ng-if="!deals.count">You have no deals yet</h5>
     </div>
 
     <div class="ibox-content">

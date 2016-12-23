@@ -3,7 +3,7 @@
         .module('tofi')
         .factory('messages', messagesFactory);
 
-    messagesFactory.$inject = ['$timeout']
+    messagesFactory.$inject = ['$timeout'];
     function messagesFactory($timeout) {
 
         var allMessages = {
@@ -61,7 +61,7 @@
             allMessages[type].push(errorMessage);
             $timeout(function(errorMessage){
                remove(type, errorMessage);
-            }, 10000, true, errorMessage)
+            }, 3000, true, errorMessage)
         }
     }
 })();
