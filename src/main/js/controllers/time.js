@@ -3,8 +3,8 @@
     angular.module('tofi')
         .controller('timeCtrl', timeCtrl);
 
-    timeCtrl.$inject = ['timeService', '$scope'];
-    function timeCtrl(timeService, $scope){
+    timeCtrl.$inject = ['timeService', '$scope', 'trader'];
+    function timeCtrl(timeService, $scope, trader){
 
         var vm = this;
 
@@ -13,10 +13,37 @@
                 $scope.time = response;
             });
 
-        vm.upRate = timeService.upRate;
-        vm.downRate = timeService.downRate;
-        vm.upDeal = timeService.upDeal;
-        vm.downDeal = timeService.downDeal;
+        // restartUpdateDeal:restartUpdateDeal,
+        // restartUpdateRate: restartUpdateRate,
+
+        vm.upRate = function(){
+            timeService.upRate()
+                .then(function(data){
+                    debugger;
+                    trader.restartUpdateRate(data);
+                })
+        };
+
+        vm.downRate = function(){
+            timeService.downRate()
+                .then(function(data){
+                    trader.restartUpdateRate(data);
+                })
+        };
+
+        vm.upDeal = function(){
+            timeService.upDeal()
+                .then(function(data){
+                    trader.restartUpdateDeal(data);
+                })
+        };
+
+        vm.downDeal = function(){
+            timeService.downDeal()
+                .then(function(data){
+                    trader.restartUpdateDeal(data);
+                })
+        }
     }
 
 })();

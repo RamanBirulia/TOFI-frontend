@@ -26,16 +26,19 @@
         };
 
         function upRate(){
-            $http.get('/api/variables/rate-interval/speedup')
+            return $http.get('/api/variables/rate-interval/speedup')
                 .then(function(response){
+                    debugger;
                     time.rateTime = +response.data.value;
+                    return time.rateTime;
                 })
         }
 
         function downRate(){
-            $http.get('/api/variables/rate-interval/slowdown')
+            return $http.get('/api/variables/rate-interval/slowdown')
                 .then(function(response){
                     time.rateTime = +response.data.value;
+                    return time.rateTime;
                 })
         }
 
@@ -43,6 +46,7 @@
             return $http.get('/api/variables/deal-interval/speedup')
                 .then(function(response){
                     time.dealTime = +response.data.value;
+                    return time.dealTime;
                 })
         }
 
@@ -50,6 +54,7 @@
             return $http.get('/api/variables/deal-interval/slowdown')
                 .then(function(response){
                     time.dealTime = +response.data.value;
+                    return time.dealTime;
                 })
         }
 

@@ -15,10 +15,9 @@
             };
 
             this.create = function(entity){
-                return $http.post('/api/bots?token=' + LocalStorage.retrieve('token'), entity)
+                return $http.post('/api/bots/create?token=' + LocalStorage.retrieve('token'), entity)
                     .then(function(response){
-                        debugger;
-                        return response;
+                        return response.data;
                     })
             };
 

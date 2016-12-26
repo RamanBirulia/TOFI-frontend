@@ -33,6 +33,9 @@
             createAccounts: createAccounts,
             getCurrentTraderAccounts: getCurrentTraderAccounts,
 
+            restartUpdateDeal:restartUpdateDeal,
+            restartUpdateRate: restartUpdateRate,
+
             stopUpdate: stopUpdate
         };
 
@@ -183,6 +186,35 @@
                     accounts.info = response.data.results;
                     return accounts;
                 })
+        }
+
+        function restartUpdateDeal(newTime){
+            $interval.cancel(updateDeal);
+            updateDeal = $interval(updateDeals, newTime);
+
+            function updateDeals(){
+                $http.get('/api/deals/closed/new?token=' + LocalStorage.retrieve('token'))
+                    .then(function(response){
+                        deals.newDealsCount += response.data.count;
+                    });
+                traderEntity.updateAccounts();
+            }
+        }
+
+        function restartUpdateRate(newTime){
+            $interval.cancel(updateRate);
+            updateRate = $interval(updateDeals, newTime);
+
+            function updateRates(){
+                $http.get('/api/rates/last?token=' + LocalStorage.retrieve('token'))
+                    .then(function(response){
+                        timeService.setTime(response.data.date);
+                        response.data.date = moment(response.data.date).subtract(3, 'hours');
+                        rates.ratesArray.unshift(response.data);
+                        rates.ratesArray = rates.ratesArray.slice(0, 15);
+                        rates.lastRate = response.data;
+                    })
+            }
         }
 
         function stopUpdate(){
