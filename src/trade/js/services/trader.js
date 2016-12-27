@@ -179,7 +179,7 @@
                 $http.get('/api/rates/last?token=' + LocalStorage.retrieve('token'))
                     .then(function(response){
                         timeService.setTime(response.data.date);
-                        if (!rates.ratesArray[0].date.isSame(moment(response.data.date))){
+                        if (!rates.ratesArray[0].date.isSame(moment(response.data.date).subtract(3, 'hours'))){
                             response.data.date = moment(response.data.date).subtract(3, 'hours');
                             rates.ratesArray.unshift(response.data);
                             rates.ratesArray = rates.ratesArray.slice(0, 15);
@@ -218,10 +218,12 @@
                 $http.get('/api/rates/last?token=' + LocalStorage.retrieve('token'))
                     .then(function(response){
                         timeService.setTime(response.data.date);
-                        response.data.date = moment(response.data.date).subtract(3, 'hours');
-                        rates.ratesArray.unshift(response.data);
-                        rates.ratesArray = rates.ratesArray.slice(0, 15);
-                        rates.lastRate = response.data;
+                        if (!rates.ratesArray[0].date.isSame(moment(response.data.date).subtract(3, 'hours'))){
+                            response.data.date = moment(response.data.date).subtract(3, 'hours');
+                            rates.ratesArray.unshift(response.data);
+                            rates.ratesArray = rates.ratesArray.slice(0, 15);
+                            rates.lastRate = response.data;
+                        }
                     })
             }
         }
