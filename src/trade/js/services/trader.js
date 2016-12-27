@@ -110,7 +110,7 @@
                     if (!deals){
                         deals = {
                             myDeals: response.data.results,
-                            newDealsCount: response.data.count
+                            newDealsCount: 0
                         };
                     } else {
                         deals.myDeals = response.data.results;
@@ -204,9 +204,9 @@
             function updateDeals(){
                 $http.get('/api/deals/closed/new?token=' + LocalStorage.retrieve('token'))
                     .then(function(response){
+                        accounts.info = response.data.accounts;
                         deals.newDealsCount += response.data.count;
                     });
-                traderEntity.updateAccounts();
             }
         }
 

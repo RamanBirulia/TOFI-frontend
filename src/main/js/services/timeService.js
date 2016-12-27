@@ -28,7 +28,6 @@
         function upRate(){
             return $http.get('/api/variables/rate-interval/speedup')
                 .then(function(response){
-                    debugger;
                     time.rateTime = +response.data.value;
                     return time.rateTime;
                 })
