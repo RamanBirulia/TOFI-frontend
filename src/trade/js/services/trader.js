@@ -212,7 +212,7 @@
 
         function restartUpdateRate(newTime){
             $interval.cancel(updateRate);
-            updateRate = $interval(updateDeals, newTime);
+            updateRate = $interval(updateRates, newTime);
 
             function updateRates(){
                 $http.get('/api/rates/last?token=' + LocalStorage.retrieve('token'))
