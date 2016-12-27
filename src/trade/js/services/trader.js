@@ -3,8 +3,8 @@
         .module('tofi.trade')
         .factory('trader', traderFactory);
 
-    traderFactory.$inject = ['LocalStorage', 'currentUser', '$http', 'timeService', '$q', '$interval'];
-    function traderFactory(LocalStorage, currentUser, $http, timeService, $q, $interval) {
+    traderFactory.$inject = ['LocalStorage', 'currentUser', '$http', 'timeService', '$q', '$interval', '$timeout'];
+    function traderFactory(LocalStorage, currentUser, $http, timeService, $q, $interval, $timeout) {
 
         var rates = null;
 
@@ -46,7 +46,10 @@
                 sellPrice: rate,
                 units: units
             })
-            .then(null, function(response){
+            .then(function(data){
+                traderEntity.updateAccounts();
+                return data;
+            }, function(response){
                 throw response.data.errors;
             })
         }
@@ -58,7 +61,10 @@
                 buyPrice: rate,
                 units: units
             })
-            .then(null, function(response){
+            .then(function(data){
+                traderEntity.updateAccounts();
+                return data;
+            }, function(response){
                 throw response.data.errors;
             })
         }
@@ -156,26 +162,29 @@
             function updateDeals(){
                 $http.get('/api/deals/closed/new?token=' + LocalStorage.retrieve('token'))
                     .then(function(response){
+                        accounts.info = response.data.accounts;
                         deals.newDealsCount += response.data.count;
                     });
-                traderEntity.updateAccounts();
+                // traderEntity.updateAccounts();
             }
         }
 
         function startUpdateRate(){
             timeService.getTime()
                 .then(function(response){
-                    updateRate = $interval(updateRates, response.rateTime);
+                    updateRate = $interval(updateRates, response.rateTime/2);
                 });
 
             function updateRates(){
                 $http.get('/api/rates/last?token=' + LocalStorage.retrieve('token'))
                     .then(function(response){
                         timeService.setTime(response.data.date);
-                        response.data.date = moment(response.data.date).subtract(3, 'hours');
-                        rates.ratesArray.unshift(response.data);
-                        rates.ratesArray = rates.ratesArray.slice(0, 15);
-                        rates.lastRate = response.data;
+                        if (!rates.ratesArray[0].date.isSame(rates.ratesArray[0].date)){
+                            response.data.date = moment(response.data.date).subtract(3, 'hours');
+                            rates.ratesArray.unshift(response.data);
+                            rates.ratesArray = rates.ratesArray.slice(0, 15);
+                            rates.lastRate = response.data;
+                        }
                     })
             }
         }

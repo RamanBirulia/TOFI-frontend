@@ -26,6 +26,10 @@
         trader.getDeals()
             .then(function(data){
                 $scope.deals = data;
+                trader.getCurrentTraderAccounts()
+                    .then(function(data){
+                        $scope.accounts = data;
+                    });
             });
 
         currentUser.getCurrentUser()
@@ -33,10 +37,6 @@
                 $scope.currentUser = data;
             });
 
-        trader.getCurrentTraderAccounts()
-            .then(function(data){
-                $scope.accounts = data;
-            });
 
         ctrl.logout = function(){
             LocalStorage.remove('token');
